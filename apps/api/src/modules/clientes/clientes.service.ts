@@ -44,11 +44,17 @@ export class ClientesService {
 
   /**
    * Historial de trabajos del cliente (Parte 2 §2: "¿qué trabajos hicimos antes
-   * a este cliente?"). El modelo Trabajo se agrega recién en el Sprint 3 — hasta
-   * entonces, esta consulta siempre devuelve vacío, a propósito.
+   * a este cliente?"), del más reciente al más viejo.
+   *
+   * No incluye el cliente en la respuesta porque ya se conoce por la ruta, ni
+   * participantes/costos, que son del detalle del trabajo.
    */
   async historialDeTrabajos(id: string) {
     await this.obtenerPorId(id); // 404 si no existe
-    return [] as unknown[];
+    return this.prisma.trabajo.findMany({
+      where: { clienteId: id },
+      include: { tipoEquipo: true, tipoServicio: true },
+      orderBy: { fecha: 'desc' },
+    });
   }
 }

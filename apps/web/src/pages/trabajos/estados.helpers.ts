@@ -54,3 +54,11 @@ export const TEXTO_ROL_TRABAJO: Record<string, string> = {
   PARTICIPANTE: 'Participante',
   COLABORADOR_EXTERNO: 'Colaborador externo',
 };
+
+/** Los importes viajan como string (son Decimal en Prisma). */
+export function formatearMonto(valor?: string | null) {
+  if (!valor) return null;
+  const numero = Number(valor);
+  if (Number.isNaN(numero)) return valor;
+  return numero.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+}

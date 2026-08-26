@@ -74,6 +74,6 @@ Migración: `20260816183125_agregar_trabajos`.
 - Agregar un colaborador externo tampoco toca la participación societaria.
 - No permite finalizar un trabajo sin `precioFinal`.
 
-## Pendiente detectado
+## Trabajo residual (cerrado)
 
-El modelo `Trabajo` ya tiene la relación con `Cliente`, pero `ClientesService.historialDeTrabajos()` sigue devolviendo `[]` hardcodeado (stub del Sprint 2). Conectarlo es trabajo residual de este sprint.
+La relación `Cliente 1—N Trabajo` que crea este sprint dejó habilitado el historial de la ficha de cliente, que hasta entonces era un stub del Sprint 2. Quedó conectado: `GET /api/clientes/:id/trabajos` devuelve los trabajos reales y `ClienteDetallePage` los muestra en tabla. Ver [sprint-2.md](sprint-2.md).

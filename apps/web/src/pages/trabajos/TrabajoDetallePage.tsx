@@ -25,6 +25,7 @@ import {
   TEXTO_ESTADO_PAGO,
   TEXTO_ROL_TRABAJO,
   TEXTO_TIPO_COSTO,
+  formatearMonto,
 } from './estados.helpers';
 
 export function TrabajoDetallePage() {
@@ -271,11 +272,4 @@ function Dato({ label, valor }: { label: string; valor?: string | null }) {
       <p className="text-sm text-gray-800">{valor || '—'}</p>
     </div>
   );
-}
-
-function formatearMonto(valor?: string | null) {
-  if (!valor) return null;
-  const numero = Number(valor);
-  if (Number.isNaN(numero)) return valor;
-  return numero.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
 }

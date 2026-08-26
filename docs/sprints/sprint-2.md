@@ -1,6 +1,6 @@
 # Sprint 2 — Clientes
 
-**Estado:** ✅ Completo (con 1 pendiente heredado, ver abajo)
+**Estado:** ✅ Completo
 **Referencia:** `docs/04 - Plan de Desarrollo y MVP.md` §3
 **Depende de:** [sprint-1.md](sprint-1.md) (auth)
 
@@ -20,14 +20,14 @@ Tener una base de clientes operativa antes de poder cargar trabajos.
 - Alta y edición con DTOs validados: `crear-cliente.dto.ts`, `actualizar-cliente.dto.ts`.
 - Búsqueda por texto libre sobre nombre, teléfono o localidad (`contains`, case-insensitive), ordenada por nombre.
 - Obtención por id con `NotFoundException` explícita; la edición valida existencia antes de actualizar.
-- Endpoint de historial de trabajos del cliente, previsto para conectarse en el Sprint 3.
+- Historial de trabajos del cliente, ordenado del más reciente al más viejo (conectado al modelo `Trabajo` una vez que el Sprint 3 lo creó).
 - Todo el controller protegido por `JwtAuthGuard` + `RolesGuard`.
 
 ### Frontend (`apps/web/src/pages/clientes/`)
 
 - `ClientesPage`: listado con buscador.
 - `ClienteForm`: formulario de alta/edición (usado dentro de `Modal`).
-- `ClienteDetallePage`: ficha del cliente con el espacio del historial de trabajos.
+- `ClienteDetallePage`: ficha del cliente con la tabla del historial de trabajos (fecha, servicio, estados y precio, con link al detalle de cada trabajo).
 - `clientes.api.ts`: capa de acceso a la API.
 
 ## Entidades
@@ -46,8 +46,13 @@ Tabla `clientes` creada en la migración `20260816020631_agregar_clientes`. La r
 
 ## Tests
 
-No hay tests unitarios propios de este módulo en el repositorio. La cobertura automatizada del sprint quedó pendiente.
+`apps/api/src/modules/clientes/clientes.service.spec.ts`:
 
-## Pendiente heredado
+- El historial devuelve los trabajos del cliente filtrados por `clienteId` y ordenados por fecha descendente.
+- Si el cliente no existe, lanza `NotFoundException` sin llegar a consultar trabajos.
 
-`ClientesService.historialDeTrabajos()` devuelve un array vacío hardcodeado. Era correcto mientras el modelo `Trabajo` no existía, pero el Sprint 3 lo creó y este método nunca se conectó. Hoy la ficha de cliente muestra el historial siempre vacío. Ver [sprint-3.md](sprint-3.md).
+El alta, la edición y la búsqueda todavía no tienen cobertura automatizada.
+
+## Historial de la ficha (cerrado)
+
+`ClientesService.historialDeTrabajos()` devolvía un array vacío hardcodeado mientras el modelo `Trabajo` no existía. Quedó conectado después del Sprint 3: hoy consulta `Trabajo` por `clienteId` con sus catálogos. Ver [sprint-3.md](sprint-3.md).

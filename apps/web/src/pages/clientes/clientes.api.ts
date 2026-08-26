@@ -1,4 +1,11 @@
 import { apiClient } from '../../api/client';
+import type {
+  EstadoComercial,
+  EstadoOperativo,
+  EstadoPago,
+  TipoEquipo,
+  TipoServicio,
+} from '../trabajos/trabajos.api';
 
 export interface Cliente {
   id: string;
@@ -41,7 +48,24 @@ export async function actualizarCliente(
   return data;
 }
 
-export async function historialDeTrabajos(id: string): Promise<unknown[]> {
-  const { data } = await apiClient.get<unknown[]>(`/clientes/${id}/trabajos`);
+/**
+ * Trabajo tal como lo devuelve `GET /clientes/:id/trabajos`: sin el cliente
+ * (ya se conoce por la ruta) ni participantes/costos (son del detalle).
+ */
+export interface TrabajoDelCliente {
+  id: string;
+  fecha: string;
+  descripcion?: string | null;
+  tipoEquipo: TipoEquipo;
+  tipoServicio: TipoServicio;
+  estadoComercial: EstadoComercial;
+  estadoOperativo: EstadoOperativo;
+  estadoPago: EstadoPago;
+  precioPresupuestado?: string | null;
+  precioFinal?: string | null;
+}
+
+export async function historialDeTrabajos(id: string): Promise<TrabajoDelCliente[]> {
+  const { data } = await apiClient.get<TrabajoDelCliente[]>(`/clientes/${id}/trabajos`);
   return data;
 }

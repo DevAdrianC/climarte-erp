@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Modal } from '../../components/Modal';
+import { Badge } from '../../components/Badge';
 import { ClienteForm } from './ClienteForm';
 import {
   ClienteFormValues,
@@ -9,6 +10,13 @@ import {
   historialDeTrabajos,
   obtenerCliente,
 } from './clientes.api';
+import {
+  COLOR_ESTADO_COMERCIAL,
+  COLOR_ESTADO_OPERATIVO,
+  TEXTO_ESTADO_COMERCIAL,
+  TEXTO_ESTADO_OPERATIVO,
+  formatearMonto,
+} from '../trabajos/estados.helpers';
 
 export function ClienteDetallePage() {
   const { id } = useParams<{ id: string }>();
@@ -21,7 +29,7 @@ export function ClienteDetallePage() {
     enabled: !!id,
   });
 
-  const { data: trabajos } = useQuery({
+  const { data: trabajos, isLoading: cargandoTrabajos } = useQuery({
     queryKey: ['clientes', id, 'trabajos'],
     queryFn: () => historialDeTrabajos(id!),
     enabled: !!id,
@@ -65,15 +73,63 @@ export function ClienteDetallePage() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-6">
-        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+        <h3 className="px-6 py-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
           Historial de trabajos
         </h3>
-        {trabajos && trabajos.length === 0 && (
-          <p className="text-sm text-gray-400">
-            Todavía no hay trabajos registrados para este cliente. El módulo de Trabajos se
-            construye en el Sprint 3.
+
+        {cargandoTrabajos && <p className="px-6 pb-6 text-sm text-gray-400">Cargando...</p>}
+
+        {!cargandoTrabajos && trabajos?.length === 0 && (
+          <p className="px-6 pb-6 text-sm text-gray-400">
+            Todavía no hay trabajos registrados para este cliente.
           </p>
+        )}
+
+        {!cargandoTrabajos && !!trabajos?.length && (
+          <table className="w-full text-left text-sm">
+            <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+              <tr>
+                <th className="px-4 py-3">Fecha</th>
+                <th className="px-4 py-3">Servicio</th>
+                <th className="px-4 py-3">Estado comercial</th>
+                <th className="px-4 py-3">Estado operativo</th>
+                <th className="px-4 py-3 text-right">Precio</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {trabajos.map((t) => (
+                <tr key={t.id} className="hover:bg-gray-50">
+                  <td className="px-4 py-3">
+                    <Link
+                      to={`/trabajos/${t.id}`}
+                      className="font-medium text-climarte-dark hover:underline"
+                    >
+                      {new Date(t.fecha).toLocaleDateString('es-AR')}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3 text-gray-600">
+                    {t.tipoServicio.nombre} · {t.tipoEquipo.nombre}
+                  </td>
+                  <td className="px-4 py-3">
+                    <Badge
+                      texto={TEXTO_ESTADO_COMERCIAL[t.estadoComercial]}
+                      color={COLOR_ESTADO_COMERCIAL[t.estadoComercial]}
+                    />
+                  </td>
+                  <td className="px-4 py-3">
+                    <Badge
+                      texto={TEXTO_ESTADO_OPERATIVO[t.estadoOperativo]}
+                      color={COLOR_ESTADO_OPERATIVO[t.estadoOperativo]}
+                    />
+                  </td>
+                  <td className="px-4 py-3 text-right text-gray-600">
+                    {formatearMonto(t.precioFinal ?? t.precioPresupuestado) || '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
 

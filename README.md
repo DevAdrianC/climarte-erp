@@ -18,7 +18,7 @@ El detalle por sprint vive en `docs/sprints/` — **esa carpeta es la fuente de 
 | Sprint | Alcance | Estado |
 |---|---|---|
 | Sprint 1 | Fundación técnica (monorepo, Prisma, JWT, roles/guards, layout web) | ✅ Completo |
-| Sprint 2 | Clientes (alta, edición, búsqueda, ficha) | ✅ Completo (con 1 pendiente, ver abajo) |
+| Sprint 2 | Clientes (alta, edición, búsqueda, ficha con historial) | ✅ Completo |
 | Sprint 3 | Trabajos (3 estados, participantes, costos, garantía, catálogos) | ✅ Completo |
 | Sprint 4 | Gastos, Vehículo y Herramientas | 🔜 Por arrancar (sprint actual) |
 | Sprint 5–8 | Liquidación, Dashboard, Reportes/Auditoría, Producción | ⬜ Pendiente |
@@ -28,16 +28,15 @@ El detalle por sprint vive en `docs/sprints/` — **esa carpeta es la fuente de 
 - Monorepo (`npm workspaces`): `apps/api` (NestJS + Prisma), `apps/web` (React + Vite + Tailwind).
 - Autenticación JWT (access + refresh token), con guards de rol ya preparados para Técnico/Administrativo aunque hoy solo exista Admin/Socio.
 - Módulo de Socios: configuración de participación societaria versionada, con la regla de que siempre debe sumar 100%.
-- Módulo de Clientes: alta, edición, búsqueda por nombre/teléfono/localidad, ficha de detalle.
+- Módulo de Clientes: alta, edición, búsqueda por nombre/teléfono/localidad, ficha de detalle con historial de trabajos.
 - Módulo de Trabajos: alta, los tres estados independientes (comercial/operativo/pago), participantes (socios y colaboradores externos), costos con `pagado_por`, garantía de 90 días por defecto y validación de que no se puede finalizar sin `precio_final`.
 - Módulo de Catálogos: tipos de servicio, tipos de equipo, colaboradores externos, usuarios activos.
 - Logging estructurado (Pino), Swagger (`/api/docs`), Helmet, CORS, rate limiting.
 - Frontend: login, layout con navegación, dashboard, ABM de clientes y de trabajos contra la API real.
-- Tests unitarios de las reglas no negociables (`socios.service.spec.ts`, `trabajos.service.spec.ts`).
+- Tests unitarios de las reglas no negociables y del historial de trabajos (`socios.service.spec.ts`, `trabajos.service.spec.ts`, `clientes.service.spec.ts`).
 
 ### Deuda técnica conocida
 
-- `GET /api/clientes/:id/trabajos` devuelve siempre `[]`: es un stub del Sprint 2 que el Sprint 3 debía completar y quedó sin conectar al modelo `Trabajo`.
 - `packages/shared/` está declarada como workspace en `package.json` pero está vacía (sin `package.json` propio). Hoy no la importa nadie, así que no rompe el build.
 - No existe `.github/workflows/`: el CI de GitHub Actions mencionado en el plan todavía no está creado.
 - No existe `.gitignore` en la raíz.
