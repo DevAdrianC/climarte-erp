@@ -12,6 +12,7 @@ import { ClientesModule } from "./modules/clientes/clientes.module";
 import { TrabajosModule } from "./modules/trabajos/trabajos.module";
 import { CatalogosModule } from "./modules/catalogos/catalogos.module";
 import { GastosModule } from "./modules/gastos/gastos.module";
+import { HerramientasModule } from "./modules/herramientas/herramientas.module";
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { GastosModule } from "./modules/gastos/gastos.module";
     TrabajosModule,
     CatalogosModule,
     GastosModule,
+    HerramientasModule,
   ],
   controllers: [AppController],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
