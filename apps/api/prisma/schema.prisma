@@ -173,6 +173,8 @@ model Trabajo {
 
   participantes          TrabajoParticipante[]
   costos                 CostoTrabajo[]
+  gastosVariables        GastoVariable[]
+  registrosCombustible   RegistroCombustible[]
 
   @@map("trabajos")
 }
@@ -208,4 +210,128 @@ model CostoTrabajo {
   creadoEn        DateTime  @default(now()) @map("creado_en")
 
   @@map("costos_trabajo")
+}
+// Sprint 4 — Gastos, Vehículo y Herramientas (Plan de Desarrollo, Parte 4 §3).
+
+enum PeriodicidadGasto {
+  MENSUAL
+  TRIMESTRAL
+  ANUAL
+}
+
+enum EstadoHerramienta {
+  ACTIVA
+  DADA_DE_BAJA
+}
+
+model CategoriaGasto {
+  id        String   @id @default(uuid())
+  nombre    String   @unique
+  creadoEn  DateTime @default(now()) @map("creado_en")
+
+  gastosFijos     GastoFijo[]
+  gastosVariables GastoVariable[]
+
+  @@map("categorias_gasto")
+}
+
+model Proveedor {
+  id             String   @id @default(uuid())
+  nombre         String
+  telefono       String?
+  observaciones  String?
+  creadoEn       DateTime @default(now()) @map("creado_en")
+
+  gastosVariables GastoVariable[]
+
+  @@map("proveedores")
+}
+
+// Gasto recurrente del negocio (alquiler, seguro, etc.), no asociado a un trabajo puntual.
+model GastoFijo {
+  id             String            @id @default(uuid())
+  categoriaId    String            @map("categoria_id")
+  categoria      CategoriaGasto    @relation(fields: [categoriaId], references: [id])
+  importeMensual Decimal           @db.Decimal(12, 2) @map("importe_mensual")
+  periodicidad   PeriodicidadGasto @default(MENSUAL)
+  descripcion    String?
+  activo         Boolean           @default(true)
+  creadoEn       DateTime          @default(now()) @map("creado_en")
+
+  @@map("gastos_fijos")
+}
+
+// Gasto puntual. Si tiene trabajoId es costo directo de ese trabajo;
+// si no, es gasto general del negocio (regla no negociable del sprint).
+model GastoVariable {
+  id             String         @id @default(uuid())
+  categoriaId    String         @map("categoria_id")
+  categoria      CategoriaGasto @relation(fields: [categoriaId], references: [id])
+  proveedorId    String?        @map("proveedor_id")
+  proveedor      Proveedor?     @relation(fields: [proveedorId], references: [id])
+  trabajoId      String?        @map("trabajo_id")
+  trabajo        Trabajo?       @relation(fields: [trabajoId], references: [id])
+  importe        Decimal        @db.Decimal(12, 2)
+  fecha          DateTime       @default(now())
+  descripcion    String?
+  comprobanteUrl String?        @map("comprobante_url")
+  creadoEn       DateTime       @default(now()) @map("creado_en")
+
+  @@map("gastos_variables")
+}
+
+model Vehiculo {
+  id        String   @id @default(uuid())
+  marca     String
+  modelo    String
+  patente   String   @unique
+  creadoEn  DateTime @default(now()) @map("creado_en")
+
+  registrosCombustible RegistroCombustible[]
+  registrosService     RegistroService[]
+
+  @@map("vehiculos")
+}
+
+// Combustible sin trabajoId asociado = gasto general del vehículo.
+model RegistroCombustible {
+  id         String   @id @default(uuid())
+  vehiculoId String   @map("vehiculo_id")
+  vehiculo   Vehiculo @relation(fields: [vehiculoId], references: [id])
+  trabajoId  String?  @map("trabajo_id")
+  trabajo    Trabajo? @relation(fields: [trabajoId], references: [id])
+  fecha      DateTime @default(now())
+  litros     Decimal? @db.Decimal(8, 2)
+  importe    Decimal  @db.Decimal(12, 2)
+  creadoEn   DateTime @default(now()) @map("creado_en")
+
+  @@map("registros_combustible")
+}
+
+// porcentajeAtribuido es editable por evento; importeAtribuido se calcula
+// en el service (importeTotal * porcentajeAtribuido / 100) y se guarda ya resuelto.
+model RegistroService {
+  id                  String   @id @default(uuid())
+  vehiculoId          String   @map("vehiculo_id")
+  vehiculo            Vehiculo @relation(fields: [vehiculoId], references: [id])
+  fecha               DateTime @default(now())
+  descripcion         String
+  importeTotal        Decimal  @db.Decimal(12, 2) @map("importe_total")
+  porcentajeAtribuido Decimal  @db.Decimal(5, 2) @map("porcentaje_atribuido")
+  importeAtribuido    Decimal  @db.Decimal(12, 2) @map("importe_atribuido")
+  creadoEn            DateTime @default(now()) @map("creado_en")
+
+  @@map("registros_service")
+}
+
+model Herramienta {
+  id           String            @id @default(uuid())
+  nombre       String
+  categoria    String?
+  fechaCompra  DateTime?         @map("fecha_compra")
+  importe      Decimal?          @db.Decimal(12, 2)
+  estado       EstadoHerramienta @default(ACTIVA)
+  creadoEn     DateTime          @default(now()) @map("creado_en")
+
+  @@map("herramientas")
 }
