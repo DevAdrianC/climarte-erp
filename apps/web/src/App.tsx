@@ -1,13 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
-import { Layout } from './components/Layout';
-import { RutaProtegida } from './components/RutaProtegida';
-import { LoginPage } from './pages/LoginPage';
-import { DashboardPage } from './pages/DashboardPage';
-import { ProximamentePage } from './pages/ProximamentePage';
-import { ClientesPage } from './pages/clientes/ClientesPage';
-import { ClienteDetallePage } from './pages/clientes/ClienteDetallePage';
-import { TrabajosPage } from './pages/trabajos/TrabajosPage';
-import { TrabajoDetallePage } from './pages/trabajos/TrabajoDetallePage';
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { RutaProtegida } from "./components/RutaProtegida";
+import { LoginPage } from "./pages/LoginPage";
+import { DashboardPage } from "./pages/DashboardPage";
+import { ProximamentePage } from "./pages/ProximamentePage";
+import { ClientesPage } from "./pages/clientes/ClientesPage";
+import { ClienteDetallePage } from "./pages/clientes/ClienteDetallePage";
+import { TrabajosPage } from "./pages/trabajos/TrabajosPage";
+import { TrabajoDetallePage } from "./pages/trabajos/TrabajoDetallePage";
+import { HerramientasPage } from "./pages/herramientas/HerramientasPage";
 
 export default function App() {
   return (
@@ -29,13 +30,15 @@ export default function App() {
             path="/vehiculo"
             element={<ProximamentePage titulo="Vehículo" sprint="Sprint 4" />}
           />
-          <Route
-            path="/herramientas"
-            element={<ProximamentePage titulo="Herramientas" sprint="Sprint 4" />}
-          />
+          <Route path="/herramientas" element={<HerramientasPage />} />
           <Route
             path="/liquidacion"
-            element={<ProximamentePage titulo="Liquidación mensual" sprint="Sprint 5" />}
+            element={
+              <ProximamentePage
+                titulo="Liquidación mensual"
+                sprint="Sprint 5"
+              />
+            }
           />
           <Route
             path="/reportes"
@@ -47,7 +50,12 @@ export default function App() {
           />
           <Route
             path="/socios"
-            element={<ProximamentePage titulo="Socios" sprint="Sprint 1 (ya disponible por API)" />}
+            element={
+              <ProximamentePage
+                titulo="Socios"
+                sprint="Sprint 1 (ya disponible por API)"
+              />
+            }
           />
         </Route>
       </Route>
