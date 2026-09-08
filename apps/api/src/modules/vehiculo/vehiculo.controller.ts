@@ -4,7 +4,7 @@ import { CrearVehiculoDto } from "./dto/crear-vehiculo.dto";
 import { CrearRegistroCombustibleDto } from "./dto/crear-registro-combustible.dto";
 import { CrearRegistroServiceDto } from "./dto/crear-registro-service.dto";
 
-@Controller("api/vehiculos")
+@Controller("vehiculos")
 export class VehiculoController {
   constructor(private readonly vehiculoService: VehiculoService) {}
 

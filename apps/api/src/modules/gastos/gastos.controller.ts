@@ -14,7 +14,7 @@ import { CrearGastoVariableDto } from "./dto/crear-gasto-variable.dto";
 import { ActualizarGastoVariableDto } from "./dto/actualizar-gasto-variable.dto";
 import { CrearProveedorDto } from "./dto/crear-proveedor.dto";
 
-@Controller("api")
+@Controller()
 export class GastosController {
   constructor(private readonly gastosService: GastosService) {}
 

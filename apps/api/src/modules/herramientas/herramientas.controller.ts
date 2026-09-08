@@ -11,7 +11,7 @@ import { HerramientasService } from "./herramientas.service";
 import { CrearHerramientaDto } from "./dto/crear-herramienta.dto";
 import { ActualizarHerramientaDto } from "./dto/actualizar-herramienta.dto";
 
-@Controller("api/herramientas")
+@Controller("herramientas")
 export class HerramientasController {
   constructor(private readonly herramientasService: HerramientasService) {}
 

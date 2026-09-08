@@ -33,7 +33,12 @@ export function HerramientasPage() {
   });
 
   async function handleGuardar(valores: HerramientaFormValues) {
-    await crear(valores);
+    await crear({
+      ...valores,
+      categoria: valores.categoria || undefined,
+      fechaCompra: valores.fechaCompra || undefined,
+      importe: valores.importe || undefined,
+    });
   }
 
   return (
