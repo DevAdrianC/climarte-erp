@@ -57,14 +57,14 @@ Cubrir todos los gastos del emprendimiento que no dependen de un trabajo puntual
 
 ## Tareas
 
-- [ ] Modelar entidades en `schema.prisma`: `GastoFijo`, `GastoVariable`, `CategoriaGasto`, `Proveedor`, `Vehiculo`, `RegistroCombustible`, `RegistroService`, `Herramienta`.
-- [ ] Migración de Prisma + seed mínimo (al menos un vehículo y categorías base).
-- [ ] Módulo `gastos`: DTOs, service, controller, tests de la regla costo-directo-vs-gasto-general.
-- [ ] Módulo `vehiculo`: DTOs, service, controller, cálculo de `importeAtribuido` en service.
-- [ ] Módulo `herramientas`: DTOs, service, controller.
+- [x] Modelar entidades en `schema.prisma`: `GastoFijo`, `GastoVariable`, `CategoriaGasto`, `Proveedor`, `Vehiculo`, `RegistroCombustible`, `RegistroService`, `Herramienta`.
+- [x] Migración de Prisma + seed mínimo (al menos un vehículo y categorías base).
+- [x] Módulo `gastos`: DTOs, service, controller, tests de la regla costo-directo-vs-gasto-general.
+- [x] Módulo `vehiculo`: DTOs, service, controller, cálculo de `importeAtribuido` en service.
+- [x] Módulo `herramientas`: DTOs, service, controller.
+- [x] Frontend: `HerramientasPage` (verificado end-to-end: guardado real confirmado).
 - [ ] Frontend: `GastosPage` + `GastoForm`.
 - [ ] Frontend: `VehiculoPage` (combustible + service).
-- [ ] Frontend: `HerramientasPage`.
 - [ ] Actualizar Swagger con los nuevos endpoints (automático vía decoradores, pero verificar).
 - [ ] Actualizar README (tabla de estado, "implementado a hoy") al cerrar el sprint.
 
@@ -78,6 +78,7 @@ Cubrir todos los gastos del emprendimiento que no dependen de un trabajo puntual
 
 ## Estado
 
-| Fecha      | Nota                                                         |
-| ---------- | ------------------------------------------------------------ |
-| 2026-08-31 | Alcance definido y aprobado. Arranca implementación backend. |
+| Fecha      | Nota                                                                                                                                                                                                                                                                  |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-08-31 | Alcance definido y aprobado. Arranca implementación backend.                                                                                                                                                                                                          |
+| 2026-09-08 | Backend completo (Gastos, Herramientas, Vehículo) + migración + test. Frontend de Herramientas verificado funcionando end-to-end. Bug de campos opcionales vacíos identificado y corregido (aplicará también a Gastos/Vehículo). Falta frontend de Gastos y Vehículo. |
