@@ -9,6 +9,7 @@ import { ClienteDetallePage } from "./pages/clientes/ClienteDetallePage";
 import { TrabajosPage } from "./pages/trabajos/TrabajosPage";
 import { TrabajoDetallePage } from "./pages/trabajos/TrabajoDetallePage";
 import { HerramientasPage } from "./pages/herramientas/HerramientasPage";
+import { GastosPage } from "./pages/gastos/GastosPage";
 
 export default function App() {
   return (
@@ -22,10 +23,7 @@ export default function App() {
           <Route path="/clientes/:id" element={<ClienteDetallePage />} />
           <Route path="/trabajos" element={<TrabajosPage />} />
           <Route path="/trabajos/:id" element={<TrabajoDetallePage />} />
-          <Route
-            path="/gastos"
-            element={<ProximamentePage titulo="Gastos" sprint="Sprint 4" />}
-          />
+          <Route path="/gastos" element={<GastosPage />} />
           <Route
             path="/vehiculo"
             element={<ProximamentePage titulo="Vehículo" sprint="Sprint 4" />}
