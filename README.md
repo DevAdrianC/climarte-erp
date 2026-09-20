@@ -15,13 +15,13 @@ Cualquier decisión de negocio o técnica debe rastrearse a estos documentos. Si
 
 El detalle por sprint vive en `docs/sprints/` — **esa carpeta es la fuente de verdad del progreso**.
 
-| Sprint | Alcance | Estado |
-|---|---|---|
-| Sprint 1 | Fundación técnica (monorepo, Prisma, JWT, roles/guards, layout web) | ✅ Completo |
-| Sprint 2 | Clientes (alta, edición, búsqueda, ficha con historial) | ✅ Completo |
-| Sprint 3 | Trabajos (3 estados, participantes, costos, garantía, catálogos) | ✅ Completo |
-| Sprint 4 | Gastos, Vehículo y Herramientas | 🔜 Por arrancar (sprint actual) |
-| Sprint 5–8 | Liquidación, Dashboard, Reportes/Auditoría, Producción | ⬜ Pendiente |
+| Sprint     | Alcance                                                             | Estado       |
+| ---------- | ------------------------------------------------------------------- | ------------ |
+| Sprint 1   | Fundación técnica (monorepo, Prisma, JWT, roles/guards, layout web) | ✅ Completo  |
+| Sprint 2   | Clientes (alta, edición, búsqueda, ficha con historial)             | ✅ Completo  |
+| Sprint 3   | Trabajos (3 estados, participantes, costos, garantía, catálogos)    | ✅ Completo  |
+| Sprint 4   | Gastos, Vehículo y Herramientas                                     | ✅ Completo  |
+| Sprint 5–8 | Liquidación, Dashboard, Reportes/Auditoría, Producción              | ⬜ Pendiente |
 
 ### Implementado a hoy
 
@@ -74,12 +74,12 @@ npm run prisma:seed
 
 4. Usuarios de prueba (creados por el seed):
 
-   | Email | Contraseña |
-   |---|---|
+   | Email                  | Contraseña   |
+   | ---------------------- | ------------ |
    | nahuel@climarte.com.ar | climarte2026 |
    | adrian@climarte.com.ar | climarte2026 |
 
-   *(Cambiar estas contraseñas antes de ir a producción.)*
+   _(Cambiar estas contraseñas antes de ir a producción.)_
 
 ## Sin Docker (alternativa)
 
@@ -96,6 +96,4 @@ cd apps/web && npm run dev
 
 ## Sprint actual
 
-**Sprint 4 — Gastos, Vehículo y Herramientas** (por arrancar). Entidades previstas: `GastoFijo`, `GastoVariable`, `CategoriaGasto`, `Proveedor`, `Vehiculo`, `RegistroCombustible`, `RegistroService`, `Herramienta`.
-
-Ver `docs/sprints/sprint-4.md` y `docs/04 - Plan de Desarrollo y MVP.md`, sección 3.
+**Sprint 5 — Liquidación mensual** (por definir alcance). Ver `docs/04 - Plan de Desarrollo y MVP.md`, sección 3.
