@@ -32,7 +32,11 @@ export class VehiculoService {
   ) {
     await this.obtenerPorId(vehiculoId); // 404 si el vehículo no existe
     return this.prisma.registroCombustible.create({
-      data: { ...dto, vehiculoId },
+      data: {
+        ...dto,
+        vehiculoId,
+        fecha: dto.fecha ? new Date(dto.fecha) : undefined,
+      },
     });
   }
 
@@ -57,7 +61,12 @@ export class VehiculoService {
       (dto.importeTotal * (dto.porcentajeAtribuido / 100)).toFixed(2),
     );
     return this.prisma.registroService.create({
-      data: { ...dto, vehiculoId, importeAtribuido },
+      data: {
+        ...dto,
+        vehiculoId,
+        importeAtribuido,
+        fecha: dto.fecha ? new Date(dto.fecha) : undefined,
+      },
     });
   }
 
