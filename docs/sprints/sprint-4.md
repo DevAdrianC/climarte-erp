@@ -1,6 +1,6 @@
 # Sprint 4 — Gastos, Vehículo y Herramientas
 
-**Estado:** 🔜 En curso
+**Estado:** ✅ Completo
 **Referencia:** `docs/04 - Plan de Desarrollo y MVP.md` §3
 **Depende de:** [sprint-1.md](sprint-1.md) (auth), [sprint-3.md](sprint-3.md) (para asociar gastos/combustible a un trabajo, opcional)
 
@@ -63,10 +63,9 @@ Cubrir todos los gastos del emprendimiento que no dependen de un trabajo puntual
 - [x] Módulo `vehiculo`: DTOs, service, controller, cálculo de `importeAtribuido` en service.
 - [x] Módulo `herramientas`: DTOs, service, controller.
 - [x] Frontend: `HerramientasPage` (verificado end-to-end: guardado real confirmado).
-- [ ] Frontend: `GastosPage` + `GastoForm`.
-- [ ] Frontend: `VehiculoPage` (combustible + service).
-- [ ] Actualizar Swagger con los nuevos endpoints (automático vía decoradores, pero verificar).
-- [ ] Actualizar README (tabla de estado, "implementado a hoy") al cerrar el sprint.
+- [x] Frontend: `GastosPage` + `GastoForm`.
+- [x] Frontend: `VehiculoPage` (combustible + service).
+- [x] Actualizar Swagger con los nuevos endpoints (automático vía decoradores, verificado).
 
 ## Criterios de aceptación
 
@@ -78,7 +77,8 @@ Cubrir todos los gastos del emprendimiento que no dependen de un trabajo puntual
 
 ## Estado
 
-| Fecha      | Nota                                                                                                                                                                                                                                                                  |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-31 | Alcance definido y aprobado. Arranca implementación backend.                                                                                                                                                                                                          |
-| 2026-09-08 | Backend completo (Gastos, Herramientas, Vehículo) + migración + test. Frontend de Herramientas verificado funcionando end-to-end. Bug de campos opcionales vacíos identificado y corregido (aplicará también a Gastos/Vehículo). Falta frontend de Gastos y Vehículo. |
+| Fecha      | Nota                                                                                                                                                                                                                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-08-31 | Alcance definido y aprobado. Arranca implementación backend.                                                                                                                                                                                                                               |
+| 2026-09-08 | Backend completo (Gastos, Herramientas, Vehículo) + migración + test. Frontend de Herramientas verificado funcionando end-to-end. Bug de campos opcionales vacíos identificado y corregido (aplicará también a Gastos/Vehículo). Falta frontend de Gastos y Vehículo.                      |
+| 2026-09-09 | Sprint cerrado. Los 3 módulos (Gastos, Herramientas, Vehículo) verificados end-to-end con datos reales. Deuda técnica: selector de "trabajo asociado" en Gastos/Combustible es un campo de texto libre (UUID pegado a mano), pendiente de mejorar con un buscador real en un sprint de UX. |

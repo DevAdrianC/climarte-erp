@@ -96,4 +96,4 @@ cd apps/web && npm run dev
 
 ## Sprint actual
 
-**Sprint 5 — Liquidación mensual** (por definir alcance). Ver `docs/04 - Plan de Desarrollo y MVP.md`, sección 3.
+**Sprint 5 — Liquidación mensual** Sprint 5 | ... | 🔜 Por arrancar → 🔄 En curso.

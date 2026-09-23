@@ -77,6 +77,9 @@ model Usuario {
   configuracionesCreadas       ConfiguracionParticipacion[] @relation("CreadorConfiguracion")
   participacionesEnTrabajos    TrabajoParticipante[]
   costosPagados                CostoTrabajo[]
+  ingresosCreados            Ingreso[]      @relation("CreadorIngreso")
+  retirosComoSocio           RetiroSocio[]  @relation("SocioRetiro")
+  retirosCreados             RetiroSocio[]  @relation("CreadorRetiro")  
 
   @@map("usuarios")
 }
@@ -175,6 +178,7 @@ model Trabajo {
   costos                 CostoTrabajo[]
   gastosVariables        GastoVariable[]
   registrosCombustible   RegistroCombustible[]
+    ingresos               Ingreso[]
 
   @@map("trabajos")
 }
@@ -334,4 +338,41 @@ model Herramienta {
   creadoEn     DateTime          @default(now()) @map("creado_en")
 
   @@map("herramientas")
+}
+
+// Sprint 5 — Ingresos y Liquidación mensual (Plan de Desarrollo, Parte 4 §3;
+// Especificación Funcional §9).
+
+// Cobro de un trabajo, criterio percibido (se registra cuando se cobra,
+// no cuando se factura). Un trabajo puede tener varios ingresos (cobro parcial + saldo).
+model Ingreso {
+  id           String   @id @default(uuid())
+  trabajoId    String   @map("trabajo_id")
+  trabajo      Trabajo  @relation(fields: [trabajoId], references: [id])
+  importe      Decimal  @db.Decimal(12, 2)
+  fecha        DateTime @default(now())
+  formaPago    String?  @map("forma_pago")
+  creadoPorId  String   @map("creado_por_id")
+  creadoPor    Usuario  @relation("CreadorIngreso", fields: [creadoPorId], references: [id])
+  creadoEn     DateTime @default(now()) @map("creado_en")
+
+  @@map("ingresos")
+}
+
+// socioId: de quién es la plata retirada (siempre un Usuario con rol ADMIN_SOCIO).
+// creadoPorId: quién cargó el registro en el sistema — pueden ser personas distintas
+// (ej. Adrián carga un retiro en efectivo que hizo Nahuel).
+model RetiroSocio {
+  id             String   @id @default(uuid())
+  socioId        String   @map("socio_id")
+  socio          Usuario  @relation("SocioRetiro", fields: [socioId], references: [id])
+  importe        Decimal  @db.Decimal(12, 2)
+  fecha          DateTime @default(now())
+  concepto       String?
+  observaciones  String?
+  creadoPorId    String   @map("creado_por_id")
+  creadoPor      Usuario  @relation("CreadorRetiro", fields: [creadoPorId], references: [id])
+  creadoEn       DateTime @default(now()) @map("creado_en")
+
+  @@map("retiros_socios")
 }
