@@ -54,27 +54,24 @@ Este es el módulo con la regla de negocio crítica. Para un período dado (`YYY
 
 ## Tareas
 
-- [ ] Modelar `Ingreso` y `RetiroSocio` en `schema.prisma` + migración.
-- [ ] Módulo `ingresos`: DTO, service (con actualización de `estadoPago`), controller.
-- [ ] Módulo `retiros`: DTO, service, controller.
-- [ ] Módulo `liquidacion`: service con el cálculo de los 4 componentes, controller.
-- [ ] **Tests del cálculo de liquidación** (prioridad crítica según el plan): casos verificados a mano con números de ejemplo.
-- [ ] Test: la mano de obra de los socios nunca aparece como `CostoTrabajo` (reafirmar la regla ya probada en Sprint 3, ahora también desde el cálculo de liquidación).
-- [ ] Test: los reembolsos por `pagadoPor` no se reparten 50/50 en ningún escenario.
-- [ ] Frontend: registro de cobro en `TrabajoDetallePage`.
-- [ ] Frontend: `LiquidacionPage` con selector de período.
-- [ ] Frontend: `RetiroForm`.
-- [ ] Actualizar README al cerrar el sprint.
+- [x ] Modelar `Ingreso` y `RetiroSocio` en `schema.prisma` + migración.
+- [x] Módulo `ingresos`: DTO, service (con actualización de `estadoPago`), controller.
+- [x] Módulo `retiros`: DTO, service, controller.
+- [x] Módulo `liquidacion`: service con el cálculo de los 4 componentes, controller.
+- [x] **Tests del cálculo de liquidación** (prioridad crítica según el plan): casos verificados a mano con números de ejemplo.
+- [x] Test: la mano de obra de los socios nunca aparece como `CostoTrabajo` (reafirmar la regla ya probada en Sprint 3, ahora también desde el cálculo de liquidación).
+- [x] Test: los reembolsos por `pagadoPor` no se reparten 50/50 en ningún escenario.
+- [x] Frontend: registro de cobro en `TrabajoDetallePage`.
+- [x] Frontend: `LiquidacionPage` con selector de período.
+- [x] Frontend: `RetiroForm`.
+- [x] Actualizar README al cerrar el sprint.
 
 ## Criterios de aceptación
 
-- [ ] Un trabajo `FINALIZADO` puede cobrarse (total o parcial), y su `estadoPago` se actualiza automáticamente.
-- [ ] La Liquidación mensual muestra correctamente los 4 componentes definidos en Parte 2 §9.
-- [ ] El cálculo nunca reparte 50/50 los reembolsos, ni al revés reparte por `pagadoPor` la ganancia por mano de obra.
-- [ ] El saldo pendiente por socio refleja correctamente los retiros ya realizados.
+- [x] Un trabajo `FINALIZADO` puede cobrarse (total o parcial), y su `estadoPago` se actualiza automáticamente.
+- [x] La Liquidación mensual muestra correctamente los 4 componentes definidos en Parte 2 §9.
+- [x] El cálculo nunca reparte 50/50 los reembolsos, ni al revés reparte por `pagadoPor` la ganancia por mano de obra.
+- [x] El saldo pendiente por socio refleja correctamente los retiros ya realizados.
 
-## Estado
-
-| Fecha | Nota |
-| ----- | ---- |
-|       |      |
+**Estado:** ✅ Completo
+| 2026-09-27 | Sprint cerrado. Ingresos, Retiros y Liquidación verificados end-to-end con datos reales: ganancia repartida 50/50, reembolsos íntegros a quien pagó, saldo pendiente correcto tras registrar un retiro. 5 tests automatizados de la regla crítica (Parte 2 §9) en verde. |
