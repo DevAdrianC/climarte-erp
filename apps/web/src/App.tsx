@@ -11,6 +11,7 @@ import { TrabajoDetallePage } from "./pages/trabajos/TrabajoDetallePage";
 import { HerramientasPage } from "./pages/herramientas/HerramientasPage";
 import { GastosPage } from "./pages/gastos/GastosPage";
 import { VehiculoPage } from "./pages/vehiculo/VehiculoPage";
+import { LiquidacionPage } from "./pages/liquidacion/LiquidacionPage";
 
 export default function App() {
   return (
@@ -27,15 +28,8 @@ export default function App() {
           <Route path="/gastos" element={<GastosPage />} />
           <Route path="/vehiculo" element={<VehiculoPage />} />
           <Route path="/herramientas" element={<HerramientasPage />} />
-          <Route
-            path="/liquidacion"
-            element={
-              <ProximamentePage
-                titulo="Liquidación mensual"
-                sprint="Sprint 5"
-              />
-            }
-          />
+          <Route path="/liquidacion" element={<LiquidacionPage />} />
+
           <Route
             path="/reportes"
             element={<ProximamentePage titulo="Reportes" sprint="Sprint 7" />}
