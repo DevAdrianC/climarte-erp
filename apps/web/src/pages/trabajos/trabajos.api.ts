@@ -1,10 +1,26 @@
-import { apiClient } from '../../api/client';
+import { apiClient } from "../../api/client";
 
-export type EstadoComercial = 'CONSULTA' | 'PRESUPUESTO' | 'PRESUPUESTO_ENVIADO' | 'APROBADO' | 'RECHAZADO';
-export type EstadoOperativo = 'PROGRAMADO' | 'EN_EJECUCION' | 'FINALIZADO' | 'CANCELADO';
-export type EstadoPago = 'PENDIENTE' | 'PARCIAL' | 'COBRADO';
-export type RolEnTrabajo = 'RESPONSABLE' | 'PARTICIPANTE' | 'COLABORADOR_EXTERNO';
-export type TipoCosto = 'MATERIALES' | 'TRANSPORTE' | 'MANO_OBRA_EXTERNA' | 'OTRO';
+export type EstadoComercial =
+  | "CONSULTA"
+  | "PRESUPUESTO"
+  | "PRESUPUESTO_ENVIADO"
+  | "APROBADO"
+  | "RECHAZADO";
+export type EstadoOperativo =
+  | "PROGRAMADO"
+  | "EN_EJECUCION"
+  | "FINALIZADO"
+  | "CANCELADO";
+export type EstadoPago = "PENDIENTE" | "PARCIAL" | "COBRADO";
+export type RolEnTrabajo =
+  | "RESPONSABLE"
+  | "PARTICIPANTE"
+  | "COLABORADOR_EXTERNO";
+export type TipoCosto =
+  | "MATERIALES"
+  | "TRANSPORTE"
+  | "MANO_OBRA_EXTERNA"
+  | "OTRO";
 
 export interface TipoServicio {
   id: string;
@@ -73,24 +89,26 @@ export interface TrabajoFormValues {
 }
 
 export const ESTADOS_COMERCIALES: EstadoComercial[] = [
-  'CONSULTA',
-  'PRESUPUESTO',
-  'PRESUPUESTO_ENVIADO',
-  'APROBADO',
-  'RECHAZADO',
+  "CONSULTA",
+  "PRESUPUESTO",
+  "PRESUPUESTO_ENVIADO",
+  "APROBADO",
+  "RECHAZADO",
 ];
 export const ESTADOS_OPERATIVOS: EstadoOperativo[] = [
-  'PROGRAMADO',
-  'EN_EJECUCION',
-  'FINALIZADO',
-  'CANCELADO',
+  "PROGRAMADO",
+  "EN_EJECUCION",
+  "FINALIZADO",
+  "CANCELADO",
 ];
 
 export async function listarTrabajos(filtros?: {
   estadoComercial?: string;
   estadoOperativo?: string;
 }): Promise<Trabajo[]> {
-  const { data } = await apiClient.get<Trabajo[]>('/trabajos', { params: filtros });
+  const { data } = await apiClient.get<Trabajo[]>("/trabajos", {
+    params: filtros,
+  });
   return data;
 }
 
@@ -99,47 +117,83 @@ export async function obtenerTrabajo(id: string): Promise<Trabajo> {
   return data;
 }
 
-export async function crearTrabajo(valores: TrabajoFormValues): Promise<Trabajo> {
-  const { data } = await apiClient.post<Trabajo>('/trabajos', valores);
+export async function crearTrabajo(
+  valores: TrabajoFormValues,
+): Promise<Trabajo> {
+  const { data } = await apiClient.post<Trabajo>("/trabajos", valores);
   return data;
 }
 
-export async function cambiarEstadoComercial(id: string, estadoComercial: EstadoComercial) {
-  const { data } = await apiClient.patch<Trabajo>(`/trabajos/${id}/estado-comercial`, {
-    estadoComercial,
-  });
+export async function cambiarEstadoComercial(
+  id: string,
+  estadoComercial: EstadoComercial,
+) {
+  const { data } = await apiClient.patch<Trabajo>(
+    `/trabajos/${id}/estado-comercial`,
+    {
+      estadoComercial,
+    },
+  );
   return data;
 }
 
-export async function cambiarEstadoOperativo(id: string, estadoOperativo: EstadoOperativo) {
-  const { data } = await apiClient.patch<Trabajo>(`/trabajos/${id}/estado-operativo`, {
-    estadoOperativo,
-  });
+export async function cambiarEstadoOperativo(
+  id: string,
+  estadoOperativo: EstadoOperativo,
+) {
+  const { data } = await apiClient.patch<Trabajo>(
+    `/trabajos/${id}/estado-operativo`,
+    {
+      estadoOperativo,
+    },
+  );
   return data;
 }
 
 export async function finalizarTrabajo(id: string, precioFinal: number) {
-  const { data } = await apiClient.patch<Trabajo>(`/trabajos/${id}/finalizar`, { precioFinal });
+  const { data } = await apiClient.patch<Trabajo>(`/trabajos/${id}/finalizar`, {
+    precioFinal,
+  });
   return data;
 }
 
 export async function agregarParticipante(
   trabajoId: string,
-  valores: { rolEnTrabajo: RolEnTrabajo; usuarioId?: string; colaboradorExternoId?: string },
+  valores: {
+    rolEnTrabajo: RolEnTrabajo;
+    usuarioId?: string;
+    colaboradorExternoId?: string;
+  },
 ) {
-  const { data } = await apiClient.post(`/trabajos/${trabajoId}/participantes`, valores);
+  const { data } = await apiClient.post(
+    `/trabajos/${trabajoId}/participantes`,
+    valores,
+  );
   return data;
 }
 
-export async function quitarParticipante(trabajoId: string, participanteId: string) {
-  await apiClient.delete(`/trabajos/${trabajoId}/participantes/${participanteId}`);
+export async function quitarParticipante(
+  trabajoId: string,
+  participanteId: string,
+) {
+  await apiClient.delete(
+    `/trabajos/${trabajoId}/participantes/${participanteId}`,
+  );
 }
 
 export async function agregarCosto(
   trabajoId: string,
-  valores: { tipo: TipoCosto; importe: number; descripcion?: string; pagadoPorId?: string },
+  valores: {
+    tipo: TipoCosto;
+    importe: number;
+    descripcion?: string;
+    pagadoPorId?: string;
+  },
 ) {
-  const { data } = await apiClient.post(`/trabajos/${trabajoId}/costos`, valores);
+  const { data } = await apiClient.post(
+    `/trabajos/${trabajoId}/costos`,
+    valores,
+  );
   return data;
 }
 
@@ -149,22 +203,57 @@ export async function quitarCosto(trabajoId: string, costoId: string) {
 
 // Catálogos
 export async function listarTiposServicio(): Promise<TipoServicio[]> {
-  const { data } = await apiClient.get<TipoServicio[]>('/tipos-servicio');
+  const { data } = await apiClient.get<TipoServicio[]>("/tipos-servicio");
   return data;
 }
 export async function listarTiposEquipo(): Promise<TipoEquipo[]> {
-  const { data } = await apiClient.get<TipoEquipo[]>('/tipos-equipo');
+  const { data } = await apiClient.get<TipoEquipo[]>("/tipos-equipo");
   return data;
 }
-export async function listarColaboradoresExternos(): Promise<ColaboradorExterno[]> {
-  const { data } = await apiClient.get<ColaboradorExterno[]>('/colaboradores-externos');
+export async function listarColaboradoresExternos(): Promise<
+  ColaboradorExterno[]
+> {
+  const { data } = await apiClient.get<ColaboradorExterno[]>(
+    "/colaboradores-externos",
+  );
   return data;
 }
-export async function crearColaboradorExterno(nombre: string): Promise<ColaboradorExterno> {
-  const { data } = await apiClient.post<ColaboradorExterno>('/colaboradores-externos', { nombre });
+export async function crearColaboradorExterno(
+  nombre: string,
+): Promise<ColaboradorExterno> {
+  const { data } = await apiClient.post<ColaboradorExterno>(
+    "/colaboradores-externos",
+    { nombre },
+  );
   return data;
 }
 export async function listarUsuarios(): Promise<UsuarioBasico[]> {
-  const { data } = await apiClient.get<UsuarioBasico[]>('/usuarios');
+  const { data } = await apiClient.get<UsuarioBasico[]>("/usuarios");
+  return data;
+}
+
+// Ingresos (Sprint 5)
+export interface Ingreso {
+  id: string;
+  importe: string;
+  fecha: string;
+  formaPago?: string | null;
+}
+
+export async function listarIngresos(trabajoId: string): Promise<Ingreso[]> {
+  const { data } = await apiClient.get<Ingreso[]>(
+    `/trabajos/${trabajoId}/ingresos`,
+  );
+  return data;
+}
+
+export async function registrarIngreso(
+  trabajoId: string,
+  valores: { importe: number; fecha?: string; formaPago?: string },
+): Promise<Ingreso> {
+  const { data } = await apiClient.post<Ingreso>(
+    `/trabajos/${trabajoId}/ingresos`,
+    valores,
+  );
   return data;
 }
