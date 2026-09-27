@@ -16,6 +16,7 @@ import { HerramientasModule } from "./modules/herramientas/herramientas.module";
 import { VehiculoModule } from "./modules/vehiculo/vehiculo.module";
 import { IngresosModule } from "./modules/ingresos/ingresos.module";
 import { RetirosModule } from "./modules/retiros/retiros.module";
+import { LiquidacionModule } from "./modules/liquidacion/liquidacion.module";
 
 @Module({
   imports: [
@@ -46,6 +47,8 @@ import { RetirosModule } from "./modules/retiros/retiros.module";
     IngresosModule,
     IngresosModule,
     RetirosModule,
+    RetirosModule,
+    LiquidacionModule,
   ],
   controllers: [AppController],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
