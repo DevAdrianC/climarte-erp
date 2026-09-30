@@ -98,4 +98,4 @@ cd apps/web && npm run dev
 
 ## Sprint actual
 
-**Sprint 6 — Dashboard** (por definir alcance). Ver `docs/04 - Plan de Desarrollo y MVP.md`, sección 3.
+**Sprint 6 — Dashboard** 🔄 En curso. Ver `docs/04 - Plan de Desarrollo y MVP.md`, sección 3.

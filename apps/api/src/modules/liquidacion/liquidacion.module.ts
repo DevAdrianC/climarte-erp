@@ -5,5 +5,6 @@ import { LiquidacionService } from "./liquidacion.service";
 @Module({
   controllers: [LiquidacionController],
   providers: [LiquidacionService],
+  exports: [LiquidacionService],
 })
 export class LiquidacionModule {}
