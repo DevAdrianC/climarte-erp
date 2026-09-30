@@ -94,8 +94,8 @@ cd apps/api && npm run start:dev
 cd apps/web && npm run dev
 ```
 
-| Sprint 5 | Ingresos y Liquidación mensual | ✅ Completo |
+| Sprint 6 | Dashboard | ✅ Completo |
 
 ## Sprint actual
 
-**Sprint 6 — Dashboard** 🔄 En curso. Ver `docs/04 - Plan de Desarrollo y MVP.md`, sección 3.
+**Sprint 7 — Reportes y Auditoría** (por definir alcance). Ver `docs/04 - Plan de Desarrollo y MVP.md`, sección 3.
